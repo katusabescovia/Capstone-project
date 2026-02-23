@@ -8,8 +8,18 @@ const connectDB = async () => {
     throw new Error("MONGO_URI is missing in .env file");
   }
 
-  await mongoose.connect(mongoURI);
-  console.log("✅ MongoDB connected");
+  try {
+    mongoose.set("strictQuery", true);
+
+    await mongoose.connect(mongoURI, {
+      serverSelectionTimeoutMS: 10000,
+    });
+
+    console.log("MongoDB connected");
+  } catch (error) {
+    console.error("MongoDB connection error:", error.message);
+    process.exit(1);
+  }
 };
 
-module.exports = { connectDB };
+module.exports = connectDB;

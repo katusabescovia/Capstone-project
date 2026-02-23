@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema(
   {
-    full_name: {
+    name: {
       type: String,
       required: true,
       trim: true,
@@ -20,11 +20,12 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["USER", "RECYCLER", "ADMIN"],
-      default: "USER",
+      enum: ["seller", "recycler", "admin"], 
+      default: "seller",                     
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("User", userSchema);
+module.exports =
+  mongoose.models.User || mongoose.model("User", userSchema);
