@@ -1,5 +1,18 @@
+# ───────────────────────────────────────────────
+# Netlify build configuration
+# ───────────────────────────────────────────────
+
 [build]
-  functions = "netlify/functions"           # ← no "backend/" anymore
+  # The folder to publish (frontend or root)
+  publish = "."                  
+  # Folder containing Netlify functions
+  functions = "netlify/functions"  
+  # Command to copy routes into functions folder before build
+  command = "npm run build:netlify"  
+
+# ───────────────────────────────────────────────
+# Redirect API requests to Netlify function
+# ───────────────────────────────────────────────
 
 [[redirects]]
   from = "/api/*"
@@ -7,7 +20,7 @@
   status = 200
   force = true
 
-# Optional: catch all other paths to the function (good for SPA-like API behavior)
+# Optional: catch all other routes (for SPA-like API behavior)
 [[redirects]]
   from = "/*"
   to = "/.netlify/functions/api/:splat"

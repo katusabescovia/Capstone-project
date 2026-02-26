@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 // ─── Import your routes ───────────────────────────────────────────────
 const authRoutes = require('../routes/authRoutes');
 const addressRoutes = require('../routes/addressRoutes');     // ← fixed here
-const materialRoutes = require('../routes/materialRoutes');
+const materialRoutes = require('../routes/materialRoutes');     // ← fixed here
 
 // ─── Create Express app ───────────────────────────────────────────────
 const app = express();
