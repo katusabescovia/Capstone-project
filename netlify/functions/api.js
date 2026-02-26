@@ -35,7 +35,7 @@ app.use('/api/materials', materialRoutes);
 // Optional debug routes (keep if you want)
 app.get('/check-users', async (req, res) => {
   try {
-    const User = require('../../models/User');
+    const User = require('../models/User');
     const users = await User.find().select('email role');
     res.status(200).json({ count: users.length, users });
   } catch (err) {
