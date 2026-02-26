@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // ─── Import your routes ───────────────────────────────────────────────
 const authRoutes = require('../routes/authRoutes');
-const addressRoutes = require('../routes/addressRoutes');
+const addressRoutes = require('../routes/addressRoutes');     // ← fixed here
 const materialRoutes = require('../routes/materialRoutes');
 
 // ─── Create Express app ───────────────────────────────────────────────
@@ -14,7 +14,7 @@ const app = express();
 
 // ─── Middleware ───────────────────────────────────────────────────────
 app.use(cors({
-  origin: true,                    // ← allow all for now (tighten later)
+  origin: true,
   credentials: true,
 }));
 app.use(express.json());
@@ -32,7 +32,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/addresses', addressRoutes);
 app.use('/api/materials', materialRoutes);
 
-// Optional debug routes (keep if you want)
+// Optional debug routes
 app.get('/check-users', async (req, res) => {
   try {
     const User = require('../models/User');
