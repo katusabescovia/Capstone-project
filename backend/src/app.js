@@ -4,17 +4,17 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
+const User = require("./models/User");
+
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
 
-const User = require("./models/User");
-
-const materialRoutes = require("./routes/materialRoutes");
-const pickupRoutes = require("./routes/pickupRoutes");
+// const materialRoutes = require("./routes/materialRoutes");
+// const pickupRoutes = require("./routes/pickupRoutes");
 const authRoutes = require("./routes/authRoutes");
 const addressRoutes = require("./routes/addressRoutes");
-const listingRoutes = require("./routes/listingRoutes");
-const listingItemRoutes = require("./routes/listingItemRoutes");
+const materialRoutes = require("./routes/materialRoutes");
+
 
 const app = express();
 
@@ -26,18 +26,20 @@ app.use(express.json());
 const uploadDir = path.join(__dirname, "..", "uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
+  console.log('Created uploads folder at:', uploadDir);
 }
 
 //  Serve uploaded files publicly
-app.use("/uploads", express.static(uploadDir));
 
+app.use('/uploads', express.static(uploadDir));
 // Routes
-app.use("/api/pickups", pickupRoutes);
+// app.use("/api/pickups", pickupRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/addresses", addressRoutes);
-app.use("/api/listings", listingRoutes);
-app.use("/api/listing-items", listingItemRoutes);
 app.use("/api/materials", materialRoutes);
+// app.use("/api/listings", listingRoutes);
+// app.use("/api/listing-items", listingItemRoutes);
+// app.use("/api/materials", materialRoutes);
 
 // Debug route (optional)
 app.get("/check-users", async (req, res) => {
@@ -69,5 +71,11 @@ app.use(notFound);
 
 // Global error handler
 app.use(errorHandler);
+
+
+app.use(cors({
+    origin: "http://localhost:5173", // allow your frontend
+    credentials: true
+}));
 
 module.exports = app;
