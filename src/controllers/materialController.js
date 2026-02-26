@@ -1,4 +1,4 @@
-const Material = require("../models/Material");
+const Material = require("../models/material");
 const User = require("../models/user");   // ✅ ADD THIS
 
 exports.createMaterial = async (req, res) => {

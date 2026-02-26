@@ -1,5 +1,5 @@
 // src/middleware/ownership.js
-const Material = require('../models/Material');
+const Material = require('../models/material');
 
 const checkMaterialOwner = async (req, res, next) => {
   try {

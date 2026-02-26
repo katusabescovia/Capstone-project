@@ -1,6 +1,6 @@
 const ListingItem = require("../models/ListingItem");
 const Listing = require("../models/Listing");
-const Material = require("../models/Material");
+const Material = require("../models/material");
 
 // POST /api/listings/:listingId/items
 exports.createListingItem = async (req, res, next) => {
