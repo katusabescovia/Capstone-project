@@ -1,8 +1,15 @@
 [build]
-  functions = "backend/netlify/functions"   # ← important: add backend/ prefix
+  functions = "netlify/functions"           # ← no "backend/" anymore
 
 [[redirects]]
   from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+  force = true
+
+# Optional: catch all other paths to the function (good for SPA-like API behavior)
+[[redirects]]
+  from = "/*"
   to = "/.netlify/functions/api/:splat"
   status = 200
   force = true
