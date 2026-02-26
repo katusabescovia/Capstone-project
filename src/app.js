@@ -74,8 +74,12 @@ app.use(errorHandler);
 
 
 app.use(cors({
-    origin: "http://localhost:5173", // allow your frontend
-    credentials: true
+    origin:["http://localhost:5173",
+            'https://waste2-build.vercel.app'],
+     // allow your frontend
+    credentials: true,                             // if using cookies/auth
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 module.exports = app;
