@@ -5,9 +5,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 // ─── Import your routes ───────────────────────────────────────────────
-const authRoutes = require('../../routes/authRoutes');
-const addressRoutes = require('../../routes/addressRoutes');
-const materialRoutes = require('../../routes/materialRoutes');
+const authRoutes = require('../routes/authRoutes');
+const addressRoutes = require('../routes/addressRoutes');
+const materialRoutes = require('../routes/materialRoutes');
 
 // ─── Create Express app ───────────────────────────────────────────────
 const app = express();
