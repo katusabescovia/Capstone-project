@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
-const User = require("./models/User");
+const User = require("./models/user");
 
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
