@@ -4,7 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
 
-const User = require("./models/User");
+const User = require("./models/user");
 
 const notFound = require("./middleware/notFound");
 const errorHandler = require("./middleware/errorHandler");
@@ -19,7 +19,15 @@ const materialRoutes = require("./routes/materialRoutes");
 const app = express();
 
 // Middlewares
-app.use(cors());
+
+app.use(cors({
+  origin: ["http://localhost:5173", "https://waste2-build.vercel.app"],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+
 app.use(express.json());
 
 //  Ensure uploads folder exists (Windows safe)
@@ -72,10 +80,5 @@ app.use(notFound);
 // Global error handler
 app.use(errorHandler);
 
-
-app.use(cors({
-    origin: "http://localhost:5173", // allow your frontend
-    credentials: true
-}));
 
 module.exports = app;

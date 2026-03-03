@@ -1,4 +1,4 @@
-const Material = require('../models/Material');
+const Material = require('../models/material');
 
 const checkRecyclerOwnership = async (req, res, next) => {
   try {

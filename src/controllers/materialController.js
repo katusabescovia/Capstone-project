@@ -1,5 +1,5 @@
-const Material = require("../models/Material");
-const User = require("../models/User");   // ✅ ADD THIS
+const Material = require("../models/material");
+const User = require("../models/user");   // ✅ ADD THIS
 
 exports.createMaterial = async (req, res) => {
   try {
