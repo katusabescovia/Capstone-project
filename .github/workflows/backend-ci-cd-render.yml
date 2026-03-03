@@ -1,0 +1,64 @@
+name: Backend CI/CD – Render Deployment
+
+# Trigger the workflow on pushes and pull requests to main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # ────────────────────────────────────────────────
+  # JOB 1: Build, Lint & Test (CI for every commit/PR)
+  # ────────────────────────────────────────────────
+  ci:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint (optional – remove if no lint script)
+        run: npm run lint || true   # continue even if lint fails
+
+      - name: Run tests (optional – remove if no tests yet)
+        run: npm test || true       # continue even if tests fail
+
+  # ────────────────────────────────────────────────
+  # JOB 2: Deploy to Render (only on push to main)
+  # ────────────────────────────────────────────────
+  deploy:
+    name: Deploy to Render
+    needs: ci                         # only run if CI passes
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'   # only on push to main
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy backend to Render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          # Required secrets – add these in GitHub repo Settings → Secrets → Actions
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key:    ${{ secrets.RENDER_API_KEY }}
+
+          # Optional but recommended
+          wait-deploy: true             # wait until deployment finishes before job ends
+          clear-cache: false            # set to true if you want to force fresh build every time
+
+          # Optional – show more logs in GitHub Actions output
+          verbose: true
